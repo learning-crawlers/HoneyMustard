@@ -14,6 +14,15 @@ class Proxy(models.Model):
     class Meta:
         ordering = [ '-rank' ]
 
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = [ 'name' ]
+
 class Crawler(models.Model):
     STATUS = (
         ('R', 'Ready'),
@@ -43,6 +52,14 @@ class Log(models.Model):
     crawler = models.ForeignKey(Crawler)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def proxy(self):
+        return self.proxy.host
+
+    @property
+    def crawler(self):
+        return self.crawler.name
 
     def __str__(self):
         return self.message
