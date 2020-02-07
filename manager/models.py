@@ -3,4 +3,49 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-# Create your models here.
+class Proxy(models.Model):
+    protocol = models.CharField(max_length=10)
+    host = models.CharField(max_length=30)
+    rank = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.host
+
+    class Meta:
+        ordering = [ '-rank' ]
+
+class Crawler(models.Model):
+    STATUS = (
+        ('R', 'Ready'),
+        ('W', 'Working'),
+        ('B', 'Broke'),
+        ('I', 'Inactive'),
+    )
+
+    category = models.ForeignKey(Category)
+    code = models.CharField(max_length=25)
+    name = models.CharField(max_length=255)
+    path = models.CharField(max_length=255)
+    status = models.CharField(max_length=1, choices=STATUS, default='R')
+    cron = models.CharField(max_length=50)
+    speed = models.DecimalField(default=0,max_digits=8, decimal_places=2)
+    schema = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = [ 'name' ]
+
+class Log(models.Model):
+    proxy = models.ForeignKey(Proxy)
+    crawler = models.ForeignKey(Crawler)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.message
+
+    class Meta:
+        ordering = [ '-created_at' ]
