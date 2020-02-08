@@ -26,7 +26,7 @@ class LogViewSet(viewsets.ModelViewSet):
     serializer_class = LogSerializer
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = User.objects.all().order_by('-created_at')
+    queryset = User.objects.all().order_by('username')
     serializer_class = UserSerializer
     permission_classes = [ IsAdminUser ]
-    filter_fields = [ 'id', 'username', 'email', 'is_active' ]
+    filter_fields = [ '__all__' ]

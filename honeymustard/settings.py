@@ -25,7 +25,7 @@ SECRET_KEY = ')7@y($=xaj16p_earg4k%x%)x#cgbw1a1+q!b&v1r*rf%(&)m4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles',   
+    'rest_framework',
+    'manager',
 ]
 
 MIDDLEWARE = [
@@ -118,3 +120,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static") 
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [ 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly' ]
+}

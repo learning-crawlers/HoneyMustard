@@ -31,7 +31,7 @@ class Crawler(models.Model):
         ('I', 'Inactive'),
     )
 
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     code = models.CharField(max_length=25)
     name = models.CharField(max_length=255)
     path = models.CharField(max_length=255)
@@ -48,8 +48,8 @@ class Crawler(models.Model):
         ordering = [ 'name' ]
 
 class Log(models.Model):
-    proxy = models.ForeignKey(Proxy)
-    crawler = models.ForeignKey(Crawler)
+    proxy = models.ForeignKey(Proxy, on_delete=models.CASCADE)
+    crawler = models.ForeignKey(Crawler, on_delete=models.CASCADE)
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
