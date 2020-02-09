@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from manager.views import *
@@ -12,7 +12,7 @@ router.register(r'logs', LogViewSet)
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
-	path('', include(router.urls)),
-    path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+	url(r'^', include(router.urls)),
+    url(r'^admin/', admin.site.urls),
+    url(r'^api-auth/', include('rest_framework.urls')),
 ]
