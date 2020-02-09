@@ -5,7 +5,7 @@ from django.db import models
 
 class Proxy(models.Model):
     protocol = models.CharField(max_length=10)
-    host = models.CharField(max_length=30)
+    host = models.CharField(max_length=30, unique=True)
     rank = models.IntegerField(default=0)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Proxy(models.Model):
         ordering = [ '-rank' ]
 
 class Category(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     def __str__(self):
         return self.name
@@ -32,7 +32,7 @@ class Crawler(models.Model):
     )
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    code = models.CharField(max_length=25)
+    code = models.CharField(max_length=25, unique=True)
     name = models.CharField(max_length=255)
     path = models.CharField(max_length=255)
     status = models.CharField(max_length=1, choices=STATUS, default='R')
