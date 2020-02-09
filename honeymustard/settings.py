@@ -75,14 +75,15 @@ WSGI_APPLICATION = 'honeymustard.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-ENV = 'PRD' if os.getenv('ENGINE') else 'HML'
-
-DBCONF = {
-    'HML': {
+DBHML = {
+    'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'PRD': {
+    }
+}
+
+DBPRD = {
+    'default': {
         'ENGINE': os.getenv('ENGINE'),
         'NAME': os.getenv('NAME'),
         'USER': os.getenv('USER'),
@@ -92,7 +93,7 @@ DBCONF = {
     }
 }
 
-DATABASES = DBCONF[ENV]
+DATABASES = DBPRD if os.getenv('ENGINE') else DBHML
 
 
 # Password validation
