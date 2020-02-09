@@ -5,9 +5,13 @@ from django.shortcuts import render
 
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
-from rest_framework.permissions import IsAdminUser, IsAuthenticated, ReadOnly
+from rest_framework.permissions import IsAdminUser, IsAuthenticated, BasePermission, SAFE_METHODS
 from manager.models import *
 from manager.serializers import *
+
+class ReadOnly(BasePermission):
+    def has_permission(self, request, view):
+        return request.method in SAFE_METHODS
 
 class ProxyViewSet(viewsets.ModelViewSet):
     queryset = Proxy.objects.all().order_by('-rank')
