@@ -30,8 +30,8 @@ class LogSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
-    group = serializers.SlugRelatedField(queryset=Group.objects.all(), slug_field='name')
+    groups = serializers.SlugRelatedField(queryset=Group.objects.all(), slug_field='name', many=True)
     
     class Meta:
         model = User
-        fields = [ 'id', 'username', 'email', 'is_active' ]
+        fields = [ 'id', 'username', 'email', 'is_active', 'groups' ]
