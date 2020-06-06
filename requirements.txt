@@ -1,5 +1,5 @@
 certifi
-django==1.11.15
+django==1.11.29
 django-admin==2.0.0
 django-excel-response2
 django-filter==2.0.0
